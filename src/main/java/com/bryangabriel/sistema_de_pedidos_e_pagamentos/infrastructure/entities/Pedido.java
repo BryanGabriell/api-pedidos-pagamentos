@@ -35,4 +35,10 @@ public class Pedido {
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemDoPedido> itens = new ArrayList<>();
 
+    @PrePersist
+    private void prePersist(){
+        criadoEm = LocalDate.now();
+        statusPedido = StatusDoPedido.CRIADO;
+    }
+
 }
