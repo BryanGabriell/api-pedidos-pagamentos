@@ -3,7 +3,9 @@ package com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.reposito
 
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.entities.Pedido;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.Repository;
+
+import java.util.List;
 
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
+    List<Pedido> findByUserId(Long userId);
 }
