@@ -10,12 +10,12 @@ import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.entities.
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.entities.User;
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.enums.StatusDoPedido;
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.exception.*;
-import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.repositories.ItemDoPedidoRepository;
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.repositories.PedidoRepository;
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.repositories.ProdutoRepository;
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +36,7 @@ public class PedidoService {
         this.userRepository = userRepository;
         this.produtoRepository = produtoRepository;
     }
+    @Transactional
     public PedidoRecordOut criar(Long userId, Long produtoId, ItemDoPedidoRecord itemDoPedidoRecord){
         User usuarioPedido = userRepository.findById(userId).orElseThrow(() ->
                 new UsuarioNotFound("Erro ao criar o pedido o " + userId + "não existe"));
@@ -95,7 +96,7 @@ public class PedidoService {
 
         return pedidoMapper.paraOut(pedido);
     }
-
+    @Transactional
     public PedidoRecordOut cancelarPedido(Long pedidoId){
         Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow(() ->
                 new PedidoNotFound("Pedido não encontrado"));
