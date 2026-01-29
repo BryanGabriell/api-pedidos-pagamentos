@@ -19,17 +19,18 @@ import java.util.List;
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id")
     private User user;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status_pedido", nullable = false)
     private StatusDoPedido statusPedido;
     @Column(name = "valor_total", nullable = false)
     private BigDecimal valorTotal;
-    @Column(name = "criadoEm", nullable = false)
+    @Column(name = "criado_em", nullable = false)
     private LocalDate criadoEm;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
@@ -40,5 +41,4 @@ public class Pedido {
         criadoEm = LocalDate.now();
         statusPedido = StatusDoPedido.CRIADO;
     }
-
 }
