@@ -64,49 +64,46 @@ public class PedidoService {
       return pedidoMapper.paraOut(pedido);
     }
     @Transactional
-    public PedidoRecordOut pagarPedido(Long pedidoId){
-        Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow(() ->
-                new PedidoNotFound("Erro pedido com o " + pedidoId +  "Não encontrado"));
+    public PedidoRecordOut pagarPedido(Long pedidoId) {
+        Pedido pedido = pedidoRepository.findById(pedidoId)
+                .orElseThrow(() ->
+                        new PedidoNotFound("Erro pedido com o " + pedidoId + " não encontrado"));
 
-        switch (pedido.getStatusPedido()){
-            case CRIADO -> throw new StatusInvalido("Erro. O pedido informado não foi criado");
+        switch (pedido.getStatusPedido()) {
+            case CANCELADO -> throw new StatusInvalido("Erro. Você não pode pagar um pedido que está CANCELADO");
+            case PAGO -> throw new StatusInvalido("Erro. O pedido já está pago");
+            case CRIADO -> {
 
-            case CANCELADO -> throw new StatusInvalido("Erro. Vc não pode pagar um pedido que está CANCELADO");
-
-            case PAGO -> throw new StatusInvalido("Erro o pedido ja está pago");
+            }
         }
+        pedido.getItens().forEach(item -> {
+            Produto produto = item.getProduto();
+            if (produto.getEstoque() < item.getQuantidade()) {
+                throw new EstoqueInsuficiente("Estoque insuficiente para o produto: " + produto.getNome());
+            }
+        });
 
-    for (ItemDoPedido item : pedido.getItens()){
-        Produto produto = item.getProduto();
+        pedido.getItens().forEach(item -> {
+            Produto produto = item.getProduto();
+            produto.setEstoque(produto.getEstoque() - item.getQuantidade());
+        });
 
-        if(produto.getEstoque() < item.getQuantidade()){
-            throw new EstoqueInsuficiente("Estoque insuficiente para o produto: " +  produto.getNome());
-        }
-    }
-
-    for (ItemDoPedido item : pedido.getItens()){
-        Produto produto = item.getProduto();
-
-        produto.setEstoque(produto.getEstoque() - item.getQuantidade());
-    }
         pedido.setStatusPedido(StatusDoPedido.PAGO);
-
         pedidoRepository.save(pedido);
-
 
         return pedidoMapper.paraOut(pedido);
     }
     @Transactional
-    public PedidoRecordOut cancelarPedido(Long pedidoId){
-        Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow(() ->
-                new PedidoNotFound("Pedido não encontrado"));
+    public PedidoRecordOut cancelarPedido(Long pedidoId) {
+        Pedido pedido = pedidoRepository.findById(pedidoId)
+                .orElseThrow(() -> new PedidoNotFound("Pedido não encontrado"));
 
-        switch (pedido.getStatusPedido()){
-            case PAGO -> throw new PedidoError("Erro voce não pode cancelar um pedido ja pago");
-            case CANCELADO -> throw new PedidoError("Não e possivel cancelar algo ja cancelado");
+        switch (pedido.getStatusPedido()) {
+            case PAGO -> throw new PedidoError("Erro: você não pode cancelar um pedido já pago");
+            case CANCELADO -> throw new PedidoError("Erro: o pedido já está cancelado");
             case CRIADO -> {
-                    pedido.setStatusPedido(StatusDoPedido.CANCELADO);
-                    pedidoRepository.save(pedido);
+                pedido.setStatusPedido(StatusDoPedido.CANCELADO);
+                pedidoRepository.save(pedido);
             }
         }
 
