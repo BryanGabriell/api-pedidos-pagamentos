@@ -3,7 +3,9 @@ package com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.reposito
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> {
+    boolean existsByEmail(String email);
 }
