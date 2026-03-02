@@ -6,7 +6,6 @@ import com.bryangabriel.sistema_de_pedidos_e_pagamentos.business.controller.dto.
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.entities.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
 
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
