@@ -4,6 +4,7 @@ package com.bryangabriel.sistema_de_pedidos_e_pagamentos.business.controller.dto
 import java.math.BigDecimal;
 
 public record ItemDoPedidoRecordOut(
+        Long id,
         Long produtoId,
         String nomeProduto,
         Integer quantidade,
