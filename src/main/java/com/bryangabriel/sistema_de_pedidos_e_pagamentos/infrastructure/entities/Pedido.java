@@ -3,6 +3,8 @@ package com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.entities
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.enums.StatusDoPedido;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -11,6 +13,7 @@ import java.util.List;
 
 @Table(name = "pedidos")
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @AllArgsConstructor
 @Getter
 @Setter
@@ -29,6 +32,7 @@ public class Pedido {
     private StatusDoPedido statusPedido;
     @Column(name = "valor_total", nullable = false)
     private BigDecimal valorTotal;
+    @CreatedDate
     @Column(name = "criadoEm", nullable = false)
     private LocalDate criadoEm;
 
@@ -37,7 +41,6 @@ public class Pedido {
 
     @PrePersist
     private void prePersist(){
-        criadoEm = LocalDate.now();
         statusPedido = StatusDoPedido.CRIADO;
     }
 
