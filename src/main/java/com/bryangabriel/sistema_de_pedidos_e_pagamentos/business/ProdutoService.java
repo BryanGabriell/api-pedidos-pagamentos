@@ -31,11 +31,12 @@ public class ProdutoService {
 
     public ProdutoRecordOut buscarProdutoPorId(Long produtoId){
        return produtoRepository.findById(produtoId).map(produtoMapper::paraOut).orElseThrow(() ->
-                new ProdutoNotFound("Erro produto não encotrado"));
+                new ProdutoNotFound("Erro produto não encontrado"));
     }
     @Transactional
     public ProdutoRecordOut atualizarProduto(Long produtoId, ProdutoAtualizaRecord produtoRecord){
-       Produto produto =produtoRepository.findById(produtoId).orElseThrow(() -> new ProdutoNotFound("Erro produto não encotrado"));
+       Produto produto = produtoRepository.findById(produtoId).orElseThrow(() ->
+               new ProdutoNotFound("Erro produto não encontrado"));
        if(produtoRecord.nome() != null){
            produto.setNome(produtoRecord.nome());
        }
@@ -50,7 +51,8 @@ public class ProdutoService {
            }
            produto.setEstoque(produtoRecord.estoque());
        }
-       return produtoMapper.paraOut(produto);
+       var produtoAtualizado = produtoRepository.save(produto);
+       return produtoMapper.paraOut(produtoAtualizado);
     }
 
     @Transactional

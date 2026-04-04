@@ -12,9 +12,6 @@ import java.math.BigDecimal;
 public record ItemDoPedidoRecord(
 
         @NotNull(message = "O ID do produto é obrigatório") Long produtoId,
-        @NotBlank(message = "O nome do produto não pode estar em branco") String nomeDoProduto,
         @NotNull(message = "A quantidade é obrigatória")
-        @Min(value = 1, message = "A quantidade mínima deve ser 1") Integer quantidade,
-        @NotNull(message = "O preço unitário é obrigatório")
-        @Positive(message = "O preço deve ser um valor positivo")          BigDecimal precoUnitario) {
+        @Min(value = 1, message = "A quantidade mínima deve ser 1") Integer quantidade) {
 }
