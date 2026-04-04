@@ -1,6 +1,7 @@
 package com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.entities;
 
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.enums.StatusDoPedido;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -37,6 +38,7 @@ public class Pedido {
     private LocalDate criadoEm;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<ItemDoPedido> itens = new ArrayList<>();
 
     @PrePersist

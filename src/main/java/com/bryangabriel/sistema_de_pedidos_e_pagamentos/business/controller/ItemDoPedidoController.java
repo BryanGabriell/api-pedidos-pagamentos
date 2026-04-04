@@ -1,4 +1,4 @@
-package com.bryangabriel.sistema_de_pedidos_e_pagamentos.business.controller.dto;
+package com.bryangabriel.sistema_de_pedidos_e_pagamentos.business.controller;
 
 
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.business.ItemDoPedidoService;
@@ -46,7 +46,7 @@ public class ItemDoPedidoController {
             @ApiResponse(responseCode = "404", description = "Dados inserido, não encontrados"),
             @ApiResponse(responseCode = "422", description = "Os dados enviados conflitam com as regras de negócio atuais")
     })
-    @PatchMapping("/v1/pedidos/{pedidoId}/itens/{itemId}")
+    @PatchMapping("/{pedidoId}/itens/{itemId}")
     public ResponseEntity<ItemDoPedidoRecordOut> atualizaQuantidadeItem(@PathVariable Long pedidoId, @PathVariable Long itemId,@RequestParam Integer novaQuantidade){
     ItemDoPedidoRecordOut atualizaQuantidade = itemDoPedidoService.atualizarQuantidadeItem(pedidoId, itemId, novaQuantidade);
     return ResponseEntity.ok(atualizaQuantidade);
@@ -59,7 +59,7 @@ public class ItemDoPedidoController {
             @ApiResponse(responseCode = "404", description = "Dados inseridos, não encontrados"),
             @ApiResponse(responseCode = "422", description = "Os dados enviados conflitam com as regras de negócio atuais")
     })
-    @DeleteMapping("/v1/pedidos/{pedidoId}/itens/{itemId}")
+    @DeleteMapping("/{pedidoId}/itens/{itemId}")
     public ResponseEntity<Void> removeItem(@PathVariable Long pedidoId, @PathVariable Long itemId){
      itemDoPedidoService.removerItem(pedidoId, itemId);
      return ResponseEntity.noContent().build();

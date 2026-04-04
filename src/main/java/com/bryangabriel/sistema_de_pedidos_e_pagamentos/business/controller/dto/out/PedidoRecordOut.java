@@ -1,6 +1,5 @@
 package com.bryangabriel.sistema_de_pedidos_e_pagamentos.business.controller.dto.out;
 
-import com.bryangabriel.sistema_de_pedidos_e_pagamentos.business.controller.dto.in.ItemDoPedidoRecord;
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.enums.StatusDoPedido;
 
 import java.math.BigDecimal;

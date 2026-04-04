@@ -6,7 +6,6 @@ import com.bryangabriel.sistema_de_pedidos_e_pagamentos.business.controller.dto.
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.business.mapper.ProdutoMapper;
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.entities.Produto;
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.exception.ProdutoNotFound;
-import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.exception.UsuarioNotFound;
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.repositories.ProdutoRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

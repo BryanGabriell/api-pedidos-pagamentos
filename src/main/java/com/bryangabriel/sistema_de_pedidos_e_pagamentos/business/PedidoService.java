@@ -15,7 +15,6 @@ import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.repositor
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
