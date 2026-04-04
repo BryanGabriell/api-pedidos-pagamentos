@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class ItemDoPedidoValidator {
 
     public void validaQuantidadeValida(Integer quantidade){
-        if (!(quantidade <= 0)){
+        if (quantidade <= 0){
             throw new QuantidadeInvalida("A quantidade deve ser maior que zero");
         }
     }
