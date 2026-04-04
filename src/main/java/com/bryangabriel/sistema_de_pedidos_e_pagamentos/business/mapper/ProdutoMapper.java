@@ -6,9 +6,7 @@ import com.bryangabriel.sistema_de_pedidos_e_pagamentos.business.controller.dto.
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.entities.Produto;
 import org.mapstruct.Mapper;
 
-import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
-
-@Mapper(componentModel = SPRING)
+@Mapper(componentModel = "spring")
 public interface ProdutoMapper {
     Produto paraEntity(ProdutoRecord produtoRecord);
 

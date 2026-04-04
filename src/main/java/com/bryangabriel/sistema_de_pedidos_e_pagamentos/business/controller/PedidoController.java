@@ -1,4 +1,4 @@
-package com.bryangabriel.sistema_de_pedidos_e_pagamentos.business.controller.dto;
+package com.bryangabriel.sistema_de_pedidos_e_pagamentos.business.controller;
 
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.business.PedidoService;
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.business.controller.dto.in.ItemDoPedidoRecord;

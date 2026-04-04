@@ -1,6 +1,8 @@
 package com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,6 +23,7 @@ public class ItemDoPedido {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "pedidos_id")
+    @JsonBackReference
     private Pedido pedido;
 
     @ManyToOne(optional = false)

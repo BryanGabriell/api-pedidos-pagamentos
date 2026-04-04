@@ -7,9 +7,7 @@ import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.entities.
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
-
-@Mapper(componentModel = SPRING)
+@Mapper(componentModel = "spring")
 public interface UserMapper {
     @Mapping(target = "id", ignore = true)
     User paraEntity(UserRecord userRecord);

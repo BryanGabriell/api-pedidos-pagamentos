@@ -10,6 +10,7 @@ import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.exception
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.repositories.ItemDoPedidoRepository;
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.repositories.PedidoRepository;
 import com.bryangabriel.sistema_de_pedidos_e_pagamentos.infrastructure.repositories.ProdutoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class ItemDoPedidoService {
         this.iItemDoPedidoMapper = iItemDoPedidoMapper;
     }
 
+    @Transactional
     public ItemDoPedidoRecordOut adicionarItem(Long produtoId, Long pedidoId, Integer quantidade) {
         ItemDoPedido itemRetorno = null;
         var pedido = pedidoRepository.findById(pedidoId).orElseThrow(() ->
@@ -70,7 +72,7 @@ public class ItemDoPedidoService {
 
         return  iItemDoPedidoMapper.paraOut(itemRetorno);
     }
-
+    @Transactional
     public ItemDoPedidoRecordOut atualizarQuantidadeItem(Long pedidoId, Long itemId, Integer novaQuantidade){
         var pedido = pedidoRepository.findById(pedidoId).orElseThrow(() ->
                 new PedidoNotFound("Erro Pedido Com o " + pedidoId + "Não Encontrado"));
@@ -91,7 +93,8 @@ public class ItemDoPedidoService {
         return iItemDoPedidoMapper.paraOut(itemDoPedido);
     }
 
-    public  ItemDoPedidoRecordOut removerItem(Long pedidoId,Long itemId){
+    @Transactional
+    public void removerItem(Long pedidoId,Long itemId){
         var pedido = pedidoRepository.findById(pedidoId).orElseThrow(() ->
                 new PedidoNotFound("Erro Pedido Com o " + pedidoId + "Não Encontrado"));
         itemDoPedidoValidator.validaStatusDoPedido(pedido.getStatusPedido());
@@ -106,6 +109,5 @@ public class ItemDoPedidoService {
 
         pedido.setValorTotal(calculadoraDePedido.calcularTotal(pedido.getItens()));
         pedidoRepository.save(pedido);
-        return iItemDoPedidoMapper.paraOut(item);
     }
 }
