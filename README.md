@@ -1,4 +1,4 @@
-# 🚀 Sistema de Pedidos e Pagamentos
+# FluxoPago - 🚀 Sistema de Pedidos e Pagamentos
 
 Este é um projeto de **Backend robusto** desenvolvido com **Spring Boot 3**, focado no gerenciamento de usuários, produtos e fluxo completo de pedidos (criação, adição de itens, pagamento com baixa de estoque e cancelamento).
 
